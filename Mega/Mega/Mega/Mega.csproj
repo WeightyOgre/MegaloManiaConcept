@@ -73,11 +73,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Block.cs" />
+    <Compile Include="Building.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="MainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="TextDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
