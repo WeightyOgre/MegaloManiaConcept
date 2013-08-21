@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Block.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="GameArt.cs" />
     <Compile Include="GameWorld.cs" />
     <Compile Include="MainView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

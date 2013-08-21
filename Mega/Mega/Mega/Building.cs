@@ -30,12 +30,6 @@ namespace Mega
         }
 
         //a Building texture and position
-        Texture2D buildingTexture;
-        public Texture2D BuildingTexture
-        {
-            get { return buildingTexture; }
-            set { buildingTexture = value; }
-        }
         Vector2 buildingTexturePosition;
         public Vector2 BuildingTexturePosition
         {
@@ -51,9 +45,9 @@ namespace Mega
             set { people = value; }
         }
 
-        public Building(Texture2D buildingTexture, Vector2 buildingTexturePosition, float agriculture, float industrial, float research, int people)
+        public Building(Vector2 buildingTexturePosition, float agriculture, float industrial, float research, int people)
         {
-            this.buildingTexture = buildingTexture;
+            
             this.buildingTexturePosition = buildingTexturePosition;
             this.agriculture = agriculture;
             this.industrial = industrial;

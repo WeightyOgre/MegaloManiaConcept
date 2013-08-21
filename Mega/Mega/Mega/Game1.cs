@@ -39,6 +39,8 @@ namespace Mega
 
         TextDisplay FarmerInformation;
 
+        GameArt gameArt;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -55,9 +57,7 @@ namespace Mega
             graphics.ApplyChanges();
 
             this.IsMouseVisible = true;
-
-            
-
+ 
             //set time to zero
             elapsedTime = 0;
             
@@ -72,6 +72,8 @@ namespace Mega
             AgricultureInformation = new TextDisplay(this.Content, "test", new Vector2(1030, 600));
             FarmerInformation = new TextDisplay(this.Content, "test", new Vector2(1430, 600));
 
+            gameArt = new GameArt(this.Content);
+
             theGameWorld = new GameWorld(AgricultureInformation, FarmerInformation);
 
             base.Initialize();
@@ -82,26 +84,7 @@ namespace Mega
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
-            //load the games background image
-            theGameWorld.BackGroundTexture = Content.Load<Texture2D>("background1920x1080");
-            theGameWorld.BackGroundTexturePosition = new Vector2(0,0);
 
-            //load the tile image for mapping out main game area
-            theGameWorld.TileTexture = Content.Load<Texture2D>("brick40x40");
-            theGameWorld.BuildingTexture = Content.Load<Texture2D>("BPH");
-
-            theGameWorld.UIAgricultureTexture = Content.Load<Texture2D>("AgricultureIcon80x80");
-            theGameWorld.UIIndustrialTexture = Content.Load<Texture2D>("IndustrialIcon80x80");
-            theGameWorld.UIResearchTexture = Content.Load<Texture2D>("ResearchIcon80x80");
-
-            theGameWorld.UIAgricultureBackgroundTexture = Content.Load<Texture2D>("InformationAgriculturalBackground600x320");
-            theGameWorld.UIIndustrialBackgroundTexture = Content.Load<Texture2D>("InformationIndustryBackground600x320");
-            theGameWorld.UIResearchBackgroundTexture = Content.Load<Texture2D>("InformationResearchBackground600x320");
-
-            //load the textures for the UI Icons
-            theGameWorld.LeftArrowIconTexture = Content.Load<Texture2D>("LeftArrow40x40");
-            theGameWorld.RightArrowIconTexture = Content.Load<Texture2D>("RightArrow40x40");
 
             theGameWorld.LoadMainGameArea();
             theGameWorld.LoadInformationArea();
@@ -172,20 +155,68 @@ namespace Mega
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            SpriteBatch fontBatch = new SpriteBatch(GraphicsDevice);
-
             spriteBatch.Begin();
-            theGameWorld.Draw(spriteBatch, aColor);
+            spriteBatch.Draw(gameArt.BackGroundTexture, new Vector2(0,0), aColor);
+            //mainGameArea.Draw(spriteBatch);
+            //informationArea.Draw(spriteBatch);
+            //draw the icons
+            spriteBatch.Draw(gameArt.UIAgricultureTexture, theGameWorld.getAgricultureIconPosition(), Color.White);
+            spriteBatch.Draw(gameArt.UIIndustrialTexture, theGameWorld.getIndustrialIconPosition(), Color.White);
+            spriteBatch.Draw(gameArt.UIResearchTexture, theGameWorld.getResearchIconPosition(), Color.White);
+            //draw the background for information area
+            if (theGameWorld.getUIState(0) == 1)
+            {
+                spriteBatch.Draw(gameArt.UIAgricultureBackgroundTexture, theGameWorld.getAgricultureBackgroundPosition(), Color.White);
+                spriteBatch.Draw(gameArt.LeftArrowIconTexture, theGameWorld.getLeftArrowIconPosition(), Color.White);
+                spriteBatch.Draw(gameArt.RightArrowIconTexture, theGameWorld.getRightArrowIconPosition(), Color.White);
+            }
+            if (theGameWorld.getUIState(1) == 1)
+            {
+                spriteBatch.Draw(gameArt.UIIndustrialBackgroundTexture, theGameWorld.getIndustrialBackgroundPosition(), Color.White);
+                spriteBatch.Draw(gameArt.LeftArrowIconTexture, theGameWorld.getLeftArrowIconPosition(), Color.White);
+                spriteBatch.Draw(gameArt.RightArrowIconTexture, theGameWorld.getRightArrowIconPosition(), Color.White);
+            }
+            if (theGameWorld.getUIState(2) == 1)
+            {
+                spriteBatch.Draw(gameArt.UIResearchBackgroundTexture, theGameWorld.getResearchBackgroundPosition(), Color.White);
+                spriteBatch.Draw(gameArt.LeftArrowIconTexture, theGameWorld.getLeftArrowIconPosition(), Color.White);
+                spriteBatch.Draw(gameArt.RightArrowIconTexture, theGameWorld.getRightArrowIconPosition(), Color.White);
+            }
+
+            for (int i = 0; i <= theGameWorld.getBound0(); i++)
+            {
+                for (int j = 0; j <= theGameWorld.getBound1(); j++)
+                {
+                    spriteBatch.Draw(gameArt.TileTexture, theGameWorld.getTilePosition(i,j), Color.White);
+                    for (int k = theGameWorld.getBuildingCount() - 1; k >= 0; k--)
+                    {
+                        spriteBatch.Draw(gameArt.BuildingTexture, theGameWorld.getBuildingPosition(k), Color.White);
+                    }
+                }
+            }  
+
             spriteBatch.End();
-            theGameWorld.DrawText(fontBatch);
+            DrawText();            
+            base.Draw(gameTime);
+        }
+
+        public void DrawText()
+        {
+            SpriteBatch fontBatch = new SpriteBatch(GraphicsDevice);
             debugText.DrawFont(fontBatch);
             buildingDetails.DrawFont(fontBatch);
             macroResources.DrawFont(fontBatch);
             buildingInformation.DrawFont(fontBatch);
-            theGameWorld.DrawText(fontBatch);
-
             
-            base.Draw(gameTime);
+            if (theGameWorld.getUIState(0) == 1)
+            {
+                AgricultureInformation.stringValue = Convert.ToString(theGameWorld.getBuildingPeople());
+                AgricultureInformation.DrawFont(fontBatch);
+                FarmerInformation.stringValue = Convert.ToString(theGameWorld.Farmers);
+                FarmerInformation.DrawFont(fontBatch);
+            }
+
         }
+
     }
 }

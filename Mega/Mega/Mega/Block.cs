@@ -10,12 +10,6 @@ namespace Mega
     class Block
     {
         //a Block
-        Texture2D tileTexture;
-        public Texture2D TileTexture
-        {
-            get { return tileTexture; }
-            set { tileTexture = value; }
-        }
         Vector2 tileTexturePosition;
         public Vector2 TileTexturePosition
         {
@@ -23,9 +17,9 @@ namespace Mega
             set { tileTexturePosition = value; }
         }
 
-        public Block(Texture2D tileTexture, Vector2 tileTexturePosition)
+        public Block(Vector2 tileTexturePosition)
         {
-            this.tileTexture = tileTexture;
+            
             this.tileTexturePosition = tileTexturePosition;
         }
 

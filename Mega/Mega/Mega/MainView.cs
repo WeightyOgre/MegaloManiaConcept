@@ -14,8 +14,18 @@ namespace Mega
         int blocksAcross;
         int blocksDown;
 
-        public int bound0;
-        public int bound1;
+        int bound0;
+        public int Bound0
+        {
+            get { return bound0; }
+            set { bound0 = value; }
+        }
+        int bound1;
+        public int Bound1
+        {
+            get { return bound1; }
+            set { bound1 = value; }
+        }
 
         //values of the size of the textures used for making tiles
         int blockWidth = 40;
@@ -25,27 +35,11 @@ namespace Mega
 
         Vector2 startingPosition;
 
-
-
-        Texture2D agricultureIconTexture;
-        public Texture2D AgricultureIconTexture
-        {
-            get { return agricultureIconTexture; }
-            set { agricultureIconTexture = value; }
-        }
-
         Vector2 agricultureIconPosition;
         public Vector2 AgricultureIconPosition
         {
             get { return agricultureIconPosition; }
             set { agricultureIconPosition = value; }
-        }
-        
-        Texture2D industrialIconTexture;
-        public Texture2D IndustrialIconTexture
-        {
-            get { return industrialIconTexture; }
-            set { industrialIconTexture = value; }
         }
 
         Vector2 industrialIconPosition;
@@ -53,14 +47,6 @@ namespace Mega
         {
             get { return industrialIconPosition; }
             set { industrialIconPosition = value; }
-        }
-        
-        
-        Texture2D researchIconTexture;
-        public Texture2D ResearchIconTexture
-        {
-            get { return researchIconTexture; }
-            set { researchIconTexture = value; }
         }
 
         Vector2 researchIconPosition;
@@ -71,13 +57,6 @@ namespace Mega
         }
 
         //UI background texture and position
-        Texture2D agricultureBackgroundTexture;
-        public Texture2D AgricultureBackgroundTexture
-        {
-            get { return agricultureBackgroundTexture; }
-            set { agricultureBackgroundTexture = value; }
-        }
-
         Vector2 agricultureBackgroundPosition;
         public Vector2 AgricultureBackgroundPosition
         {
@@ -85,25 +64,11 @@ namespace Mega
             set { agricultureBackgroundPosition = value; }
         }
 
-        Texture2D industrialBackgroundTexture;
-        public Texture2D IndustrialBackgroundTexture
-        {
-            get { return industrialBackgroundTexture; }
-            set { industrialBackgroundTexture = value; }
-        }
-
         Vector2 industrialBackgroundPosition;
         public Vector2 IndustrialBackgroundPosition
         {
             get { return industrialBackgroundPosition; }
             set { industrialBackgroundPosition = value; }
-        }
-
-        Texture2D researchBackgroundTexture;
-        public Texture2D ResearchBackgroundTexture
-        {
-            get { return researchBackgroundTexture; }
-            set { researchBackgroundTexture = value; }
         }
 
         Vector2 researchBackgroundPosition;
@@ -114,25 +79,11 @@ namespace Mega
         }
 
         //UI Icons
-        Texture2D leftArrowIconTexture;
-        public Texture2D LeftArrowIconTexture
-        {
-            get { return leftArrowIconTexture; }
-            set { leftArrowIconTexture = value; }
-        }
-
         Vector2 leftArrowIconPosition;
         public Vector2 LeftArrowIconPosition
         {
             get { return leftArrowIconPosition; }
             set { leftArrowIconPosition = value; }
-        }
-
-        Texture2D rightArrowIconTexture;
-        public Texture2D RightArrowIconTexture
-        {
-            get { return rightArrowIconTexture; }
-            set { rightArrowIconTexture = value; }
         }
 
         Vector2 rightArrowIconPosition;
@@ -142,7 +93,7 @@ namespace Mega
             set { rightArrowIconPosition = value; }
         }
 
-        public MainView(Texture2D tileTexture, Vector2 startingPosition, int blocksAcross, int blocksDown)
+        public MainView(Vector2 startingPosition, int blocksAcross, int blocksDown)
         {
 
             this.blocksAcross = blocksAcross;
@@ -161,7 +112,7 @@ namespace Mega
                 {
                     
                     Vector2 position = new Vector2(startingPosition.X + i * blockWidth, startingPosition.Y + j * blockHeight);
-                    theMainView[i, j] = new Block(tileTexture,position);
+                    theMainView[i, j] = new Block(position);
                                     
                 }
             }
@@ -170,42 +121,42 @@ namespace Mega
 
         }
 
-        public void PlaceUIBackground(Texture2D agricultureBackgroundTexture, Vector2 agricultureBackgroundPosition, Texture2D industrialBackgroundTexture, Vector2 industrialBackgroundPosition, Texture2D researchBackgroundTexture, Vector2 researchBackgroundPosition, Texture2D LeftArrowIconTexture, Vector2 leftArrowIconPosition, Texture2D rightArrowIconTexture, Vector2 rightArrowIconPosition)
+        public void PlaceUIBackground(Vector2 agricultureBackgroundPosition, Vector2 industrialBackgroundPosition, Vector2 researchBackgroundPosition, Vector2 leftArrowIconPosition, Vector2 rightArrowIconPosition)
         {
-            this.agricultureBackgroundTexture = agricultureBackgroundTexture;
+            
             this.agricultureBackgroundPosition = agricultureBackgroundPosition;
 
-            this.LeftArrowIconTexture = LeftArrowIconTexture;
+            
             this.leftArrowIconPosition = leftArrowIconPosition;
 
-            this.rightArrowIconTexture = rightArrowIconTexture;
+            
             this.rightArrowIconPosition = rightArrowIconPosition;
 
 
-            this.industrialBackgroundTexture = industrialBackgroundTexture;
+            
             this.industrialBackgroundPosition = industrialBackgroundPosition;
 
-            this.researchBackgroundTexture = researchBackgroundTexture;
+            
             this.researchBackgroundPosition = researchBackgroundPosition;
         }
 
-        public void placeIcons(Texture2D agricultureIconTexture, Vector2 agricultureIconPosition, Texture2D industrialIconTexture, Vector2 industrialIconPosition, Texture2D researchIconTexture, Vector2 researchIconPosition)
+        public void placeIcons(Vector2 agricultureIconPosition, Vector2 industrialIconPosition, Vector2 researchIconPosition)
         {
-            this.agricultureIconTexture = agricultureIconTexture;
+            
             this.agricultureIconPosition = agricultureIconPosition;
 
-            this.industrialIconTexture = industrialIconTexture;
+            
             this.industrialIconPosition = industrialIconPosition;
 
-            this.researchIconTexture = researchIconTexture;
+            
             this.researchIconPosition = researchIconPosition;
         }
 
-        public void AddBuilding(Texture2D buildingTexture)
+        public void AddBuilding()
         {
             //add a building
             int numberOfPeople = 2;
-            Building aBuilding = new Building(buildingTexture, new Vector2(startingPosition.X + (40 * 5), startingPosition.Y + (40 * 4)), 0.10f, 0.10f, 0.10f, numberOfPeople);
+            Building aBuilding = new Building(new Vector2(startingPosition.X + (40 * 5), startingPosition.Y + (40 * 4)), 0.10f, 0.10f, 0.10f, numberOfPeople);
             buildings.Add(aBuilding);
         }
 
@@ -248,19 +199,19 @@ namespace Mega
             buildings[0].People -= 1;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public Vector2 getTileTexturePosition(int i, int j)
         {
-            for (int i = 0; i <= bound0; i++)
-            {
-                for (int j = 0; j <= bound1; j++)
-                {
-                    spriteBatch.Draw(theMainView[i, j].TileTexture, theMainView[i, j].TileTexturePosition, Color.White);
-                    for (int k = buildings.Count - 1; k >= 0; k--)
-                    {
-                        spriteBatch.Draw(buildings[k].BuildingTexture, buildings[k].BuildingTexturePosition, Color.White);
-                    }
-                }
-            }           
+            return theMainView[i, j].TileTexturePosition;
+        }
+
+        public int getBuildingCount()
+        {
+            return buildings.Count;
+        }
+
+        public Vector2 getBuildingPosition(int k)
+        {
+            return buildings[k].BuildingTexturePosition;
         }
 
     }

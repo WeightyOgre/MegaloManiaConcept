@@ -10,88 +10,6 @@ namespace Mega
 {
     class GameWorld
     {
-        //background image
-        Texture2D backGroundTexture;
-        public Texture2D BackGroundTexture
-        {
-            get { return backGroundTexture; }
-            set { backGroundTexture = value; }
-        }
-        Vector2 backGroundTexturePosition;
-        public Vector2 BackGroundTexturePosition
-        {
-            get { return backGroundTexturePosition; }
-            set { backGroundTexturePosition = value; }
-        }
-        //tile image
-        Texture2D tileTexture;
-        public Texture2D TileTexture
-        {
-            get { return tileTexture; }
-            set { tileTexture = value; }
-        }
-        //building image
-        Texture2D buildingTexture;
-        public Texture2D BuildingTexture
-        {
-            get { return buildingTexture; }
-            set { buildingTexture = value; }
-        }
-        //UI Icons
-        Texture2D uiAgricultureTexture;
-        public Texture2D UIAgricultureTexture
-        {
-            get { return uiAgricultureTexture; }
-            set { uiAgricultureTexture = value; }
-        }
-        Texture2D uiIndustrialTexture;
-        public Texture2D UIIndustrialTexture
-        {
-            get { return uiIndustrialTexture; }
-            set { uiIndustrialTexture = value; }
-        }
-        Texture2D uiResearchTexture;
-        public Texture2D UIResearchTexture
-        {
-            get { return uiResearchTexture; }
-            set { uiResearchTexture = value; }
-        }
-
-        //UI Backgrounds
-        Texture2D uiAgricultureBackgroundTexture;
-        public Texture2D UIAgricultureBackgroundTexture
-        {
-            get { return uiAgricultureBackgroundTexture; }
-            set { uiAgricultureBackgroundTexture = value; }
-        }
-
-        Texture2D uiIndustrialBackgroundTexture;
-        public Texture2D UIIndustrialBackgroundTexture
-        {
-            get { return uiIndustrialBackgroundTexture; }
-            set { uiIndustrialBackgroundTexture = value; }
-        }
-
-        Texture2D uiResearchBackgroundTexture;
-        public Texture2D UIResearchBackgroundTexture
-        {
-            get { return uiResearchBackgroundTexture; }
-            set { uiResearchBackgroundTexture = value; }
-        }
-        //UI Icons
-        Texture2D leftArrowIconTexture;
-        public Texture2D LeftArrowIconTexture
-        {
-            get { return leftArrowIconTexture; }
-            set { leftArrowIconTexture = value; }
-        }
-
-        Texture2D rightArrowIconTexture;
-        public Texture2D RightArrowIconTexture
-        {
-            get { return rightArrowIconTexture; }
-            set { rightArrowIconTexture = value; }
-        }
 
         //object for main game content
         MainView mainGameArea;
@@ -161,7 +79,7 @@ namespace Mega
                 //first is the mouse
                 Rectangle mouseRectangle = new Rectangle(mouseState.X, mouseState.Y, 5,5);
                 //second is the ui icons
-                Rectangle agricultureIconRectangle = new Rectangle((int)informationArea.AgricultureIconPosition.X, (int)informationArea.AgricultureIconPosition.Y, informationArea.AgricultureIconTexture.Width, informationArea.AgricultureIconTexture.Height);
+                Rectangle agricultureIconRectangle = new Rectangle((int)informationArea.AgricultureIconPosition.X, (int)informationArea.AgricultureIconPosition.Y, 40, 40);
                 //check if the current mouse is clicking on the icon
                 if (mouseRectangle.Intersects(agricultureIconRectangle))
                 {
@@ -171,7 +89,7 @@ namespace Mega
                     UIState[3] = 0;
                 }
 
-                Rectangle industryIconRectangle = new Rectangle((int)informationArea.IndustrialIconPosition.X, (int)informationArea.IndustrialIconPosition.Y, informationArea.IndustrialIconTexture.Width, informationArea.IndustrialIconTexture.Height);
+                Rectangle industryIconRectangle = new Rectangle((int)informationArea.IndustrialIconPosition.X, (int)informationArea.IndustrialIconPosition.Y, 40, 40);
                 if (mouseRectangle.Intersects(industryIconRectangle))
                 {
                     UIState[0] = 0;
@@ -180,7 +98,7 @@ namespace Mega
                     UIState[3] = 0;
                 }
 
-                Rectangle researchIconRectangle = new Rectangle((int)informationArea.ResearchIconPosition.X, (int)informationArea.ResearchIconPosition.Y, informationArea.ResearchIconTexture.Width, informationArea.ResearchIconTexture.Height);
+                Rectangle researchIconRectangle = new Rectangle((int)informationArea.ResearchIconPosition.X, (int)informationArea.ResearchIconPosition.Y, 40, 40);
                 if (mouseRectangle.Intersects(researchIconRectangle))
                 {
                     UIState[0] = 0;
@@ -189,7 +107,7 @@ namespace Mega
                     UIState[3] = 0;
                 }
 
-                Rectangle leftArrowIconRectangle = new Rectangle((int)informationArea.LeftArrowIconPosition.X, (int)informationArea.LeftArrowIconPosition.Y, informationArea.LeftArrowIconTexture.Width, informationArea.LeftArrowIconTexture.Height);
+                Rectangle leftArrowIconRectangle = new Rectangle((int)informationArea.LeftArrowIconPosition.X, (int)informationArea.LeftArrowIconPosition.Y, 40, 40);
                 if (mouseRectangle.Intersects(leftArrowIconRectangle))
                 {
                     if (UIState[0] == 1)
@@ -206,7 +124,7 @@ namespace Mega
                     }
                 }
 
-                Rectangle rightArrowIconRectangle = new Rectangle((int)informationArea.RightArrowIconPosition.X, (int)informationArea.RightArrowIconPosition.Y, informationArea.RightArrowIconTexture.Width, informationArea.RightArrowIconTexture.Height);
+                Rectangle rightArrowIconRectangle = new Rectangle((int)informationArea.RightArrowIconPosition.X, (int)informationArea.RightArrowIconPosition.Y, 40, 40);
                 if (mouseRectangle.Intersects(rightArrowIconRectangle))
                 {
                     if (UIState[0] == 1)
@@ -232,8 +150,8 @@ namespace Mega
             int blocksAcross = 20;
             int blocksDown = 20;
             Vector2 startingPosition = new Vector2(100, 100);
-            mainGameArea = new MainView(tileTexture, startingPosition, blocksAcross, blocksDown);
-            mainGameArea.AddBuilding(buildingTexture);
+            mainGameArea = new MainView(startingPosition, blocksAcross, blocksDown);
+            mainGameArea.AddBuilding();
         }
 
         public void LoadInformationArea()
@@ -241,10 +159,55 @@ namespace Mega
             int blocksAcross = 15;
             int blocksDown = 20;
             Vector2 startingPosition = new Vector2(1000, 100);
-            informationArea = new MainView(tileTexture, startingPosition, blocksAcross, blocksDown);
-            informationArea.placeIcons(uiAgricultureTexture, new Vector2(1000 + (40 * 0), 100 + (40 * 6)), uiIndustrialTexture, new Vector2(1000 + (40 * 1), 100 + (40 * 6)), uiResearchTexture, new Vector2(1000 + (40 * 2), 100 + (40 * 6)));
-            informationArea.PlaceUIBackground(uiAgricultureBackgroundTexture, new Vector2(1000 + (40 * 0), 100 + (40 * 7)), uiIndustrialBackgroundTexture, new Vector2(1000 + (40 * 0), 100 + (40 * 7)), uiResearchBackgroundTexture, new Vector2(1000 + (40 * 0), 100 + (40 * 7)), leftArrowIconTexture, new Vector2(1000 + (40 * 4), 100 + (40 * 10)), rightArrowIconTexture, new Vector2(1000 + (40 * 9), 100 + (40 * 10)));
+            informationArea = new MainView(startingPosition, blocksAcross, blocksDown);
+            informationArea.placeIcons(new Vector2(1000 + (40 * 0), 100 + (40 * 6)), new Vector2(1000 + (40 * 1), 100 + (40 * 6)), new Vector2(1000 + (40 * 2), 100 + (40 * 6)));
+            informationArea.PlaceUIBackground(new Vector2(1000 + (40 * 0), 100 + (40 * 7)), new Vector2(1000 + (40 * 0), 100 + (40 * 7)), new Vector2(1000 + (40 * 0), 100 + (40 * 7)), new Vector2(1000 + (40 * 4), 100 + (40 * 10)), new Vector2(1000 + (40 * 9), 100 + (40 * 10)));
             
+        }
+
+        public Vector2 getAgricultureIconPosition()
+        {
+            return informationArea.AgricultureIconPosition;
+        }
+
+        public Vector2 getIndustrialIconPosition()
+        {
+            return informationArea.IndustrialIconPosition;
+        }
+
+        public Vector2 getResearchIconPosition()
+        {
+            return informationArea.ResearchIconPosition;
+        }
+
+        public int getUIState(int i)
+        {
+            return UIState[i];
+        }
+
+        public Vector2 getAgricultureBackgroundPosition()
+        {
+            return informationArea.AgricultureBackgroundPosition;
+        }
+
+        public Vector2 getIndustrialBackgroundPosition()
+        {
+            return informationArea.IndustrialBackgroundPosition;
+        }
+
+        public Vector2 getResearchBackgroundPosition()
+        {
+            return informationArea.ResearchBackgroundPosition;
+        }
+
+        public Vector2 getLeftArrowIconPosition()
+        {
+            return informationArea.LeftArrowIconPosition;
+        }
+
+        public Vector2 getRightArrowIconPosition()
+        {
+            return informationArea.RightArrowIconPosition;
         }
 
         public void updateResources()
@@ -274,47 +237,29 @@ namespace Mega
             return Convert.ToString(mainGameArea.getBuildingPeople());
         }
 
-        public void Draw(SpriteBatch spriteBatch, Color aColor)
+        public int getBound0()
         {
-            spriteBatch.Draw(BackGroundTexture, BackGroundTexturePosition, aColor);
-            mainGameArea.Draw(spriteBatch);
-            //informationArea.Draw(spriteBatch);
-            //draw the icons
-            spriteBatch.Draw(informationArea.AgricultureIconTexture, informationArea.AgricultureIconPosition, Color.White);
-            spriteBatch.Draw(informationArea.IndustrialIconTexture, informationArea.IndustrialIconPosition, Color.White);
-            spriteBatch.Draw(informationArea.ResearchIconTexture, informationArea.ResearchIconPosition, Color.White);
-            //draw the background for information area
-            if (UIState[0] == 1)
-            {
-                spriteBatch.Draw(informationArea.AgricultureBackgroundTexture, informationArea.AgricultureBackgroundPosition, Color.White);
-                spriteBatch.Draw(informationArea.LeftArrowIconTexture, informationArea.LeftArrowIconPosition, Color.White);
-                spriteBatch.Draw(informationArea.RightArrowIconTexture, informationArea.RightArrowIconPosition, Color.White);
-            }
-            if (UIState[1] == 1)
-            {
-                spriteBatch.Draw(informationArea.IndustrialBackgroundTexture, informationArea.IndustrialBackgroundPosition, Color.White);
-                spriteBatch.Draw(informationArea.LeftArrowIconTexture, informationArea.LeftArrowIconPosition, Color.White);
-                spriteBatch.Draw(informationArea.RightArrowIconTexture, informationArea.RightArrowIconPosition, Color.White);
-            }
-            if (UIState[2] == 1)
-            {
-                spriteBatch.Draw(informationArea.ResearchBackgroundTexture, informationArea.ResearchBackgroundPosition, Color.White);
-                spriteBatch.Draw(informationArea.LeftArrowIconTexture, informationArea.LeftArrowIconPosition, Color.White);
-                spriteBatch.Draw(informationArea.RightArrowIconTexture, informationArea.RightArrowIconPosition, Color.White);
-            }
+            return mainGameArea.Bound0;
         }
 
-        public void DrawText(SpriteBatch fontBatch)
+        public int getBound1()
         {
-            if (UIState[0] == 1)
-            {
-
-                AgricultureInformation.stringValue = Convert.ToString(mainGameArea.getBuildingPeople());
-                AgricultureInformation.DrawFont(fontBatch);
-                FarmerInformation.stringValue = Convert.ToString(farmers);
-                FarmerInformation.DrawFont(fontBatch);
-            }
+            return mainGameArea.Bound1;
         }
 
+        public Vector2 getTilePosition(int i, int j)
+        {
+            return mainGameArea.getTileTexturePosition(i,j);
+        }
+
+        public int getBuildingCount()
+        {
+            return mainGameArea.getBuildingCount();
+        }
+
+        public Vector2 getBuildingPosition(int k)
+        {
+            return mainGameArea.getBuildingPosition(k);
+        }
     }
 }
